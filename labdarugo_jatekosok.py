@@ -41,9 +41,38 @@ def legtobb_gol(labdarugok):
             jatekos = labdarugok[i][0]
     return jatekos
 
-print(f"A beolvasott fájlban összesen {legkevesebb_gol(labdarugok)} játékos szerepel.")
+def legtobb_merkozes(labdarugok):
+    merkozes_szam = 0
+    jatekos = ""
+    for i in range(len(labdarugok)):
+        if merkozes_szam < labdarugok[i][3]:
+            merkozes_szam = labdarugok[i][3]
+            jatekos = labdarugok[i][0]
+    return jatekos
+
+def atlagos_golszam(labdarugok):
+    golok_szama = 0
+    for i in range(len(labdarugok)):
+        golok_szama += labdarugok[i][2]
+    return golok_szama / len(labdarugok)
+
+def legtobb_csapat(labdarugok):
+    thisdict = {}
+    
+    for i in range(len(labdarugok)):
+        csapat = labdarugok[i][1]
+        gol = labdarugok[i][3]
+        
+        if csapat in thisdict:
+            thisdict[csapat] += gol
+        else:
+            thisdict[csapat] = gol
+            
+    return max(thisdict, key=thisdict.get)
+
+print(f"A beolvasott fájlban összesen {len(labdarugok)} játékos szerepel.")
 print(f"A legkevesebb gólt szerző játékos: {legkevesebb_gol(labdarugok)}")
-print(f"A legtöbb gólt szerző játékos: ____")
-print(f"A legtöbb mérkőzést játszó játékos: ____")
-print(f"Az átlagos gólszám: ____")
-print(f"***A legtöbb gólt szerző csapat: ____")
+print(f"A legtöbb gólt szerző játékos: {legtobb_gol(labdarugok)}")
+print(f"A legtöbb mérkőzést játszó játékos: {legtobb_merkozes(labdarugok)}")
+print(f"Az átlagos gólszám: {atlagos_golszam(labdarugok)}")
+print(f"***A legtöbb gólt szerző csapat: {legtobb_csapat(labdarugok)}")
